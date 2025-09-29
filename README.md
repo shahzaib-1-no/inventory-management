@@ -1,6 +1,61 @@
 # Django Inventory Management System  
 
-A complete **Inventory Management System** built with **Django** and **PostgreSQL**. This project helps businesses manage **stock, sales, purchase, and reporting** efficiently. Perfect for **students, developers, and small businesses** looking for a free open-source solution.  
+A complete **Inventory Management System** built with **Django** and **PostgreSQL**. This project helps businesses manage **stock, sales, purchase, and reporting** efficiently. Perfect for **students, developers, and small businesses** looking for a free open-source solution.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-Python-3776AB?logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Framework-Django-092E20?logo=django&logoColor=white" />
+  <img src="https://img.shields.io/badge/Database-PostgreSQL-336791?logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-GPLv3-yellow?logo=gnu" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Build-Passing-brightgreen?logo=githubactions&logoColor=white" />
+  <img src="https://img.shields.io/github/issues/shahzaib-1-no/inventory-management?color=orange&logo=github" />
+  <img src="https://img.shields.io/github/stars/shahzaib-1-no/inventory-management?logo=github" />
+  <img src="https://img.shields.io/github/forks/shahzaib-1-no/inventory-management?logo=github" />
+  <img src="https://img.shields.io/github/last-commit/shahzaib-1-no/inventory-management?logo=git" />
+  <img src="https://img.shields.io/github/repo-size/shahzaib-1-no/inventory-management?logo=github" />
+</p>
+
+<!-- Build / Quality / Security / Maintenance Badges -->
+<p align="center">
+  
+  <!-- Build Status -->
+  <img src="https://github.com/shahzaib-1-no/inventory-management/actions/workflows/django.yml/badge.svg" />
+  <!-- Code Coverage -->
+  <a href="https://codecov.io/gh/shahzaib-1-no/inventory-management">
+    <img src="https://codecov.io/gh/shahzaib-1-no/inventory-management/branch/main/graph/badge.svg" />
+  </a>
+  <!-- Code Quality -->
+  <a href="https://github.com/psf/black">
+    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" />
+  </a>
+  <img src="https://img.shields.io/badge/lint-Flake8-blue" />
+  <img src="https://img.shields.io/badge/lint-Pylint-yellow" />
+  <!-- Security -->
+  <a href="https://snyk.io/test/github/shahzaib-1-no/inventory-management">
+    <img src="https://snyk.io/test/github/shahzaib-1-no/inventory-management/badge.svg" />
+  </a>
+  <img src="https://img.shields.io/badge/security-Bandit-red" />
+  <!-- Maintenance -->
+  <img src="https://img.shields.io/github/contributors/shahzaib-1-no/inventory-management" />
+
+</p>
+
+---
+
+## 📚 Table of Contents  
+- [Features](#-features)  
+- [Tech Stack](#️-tech-stack)
+- [Use Cases](#-use-cases)  
+- [Installation](#️-installation)  
+- [Screenshots](#-screenshots)  
+- [Changelog](#-changelog)  
+- [License](#-license)  
+- [Contributing](#-contributing)  
+- [Support](#-support)  
+- [Author](#-author)  
 
 ---
 
@@ -19,7 +74,15 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 - **Backend:** Django (Python)  
 - **Database:** PostgreSQL  
 - **Frontend:** Bootstrap (HTML, CSS, JS)  
-- **Others:** Chart.js for reports, Django ORM for queries  
+- **Others:** Chart.js for reports, Django ORM for queries
+
+---
+
+## 📈 Use Cases  
+- Small shops & businesses to manage stock and sales  
+- Students learning Django + PostgreSQL projects  
+- Developers building POS or ERP-like systems  
+- Open-source learning reference  
 
 ---
 
@@ -27,7 +90,7 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/yourusername/inventory-management.git
+   git clone https://github.com/shahzaib-1-no/inventory-management.git
    cd inventory-management
    ```
 
@@ -69,16 +132,10 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 
 ---
 
-## 📈 Use Cases  
-- Small shops & businesses to manage stock and sales  
-- Students learning Django + PostgreSQL projects  
-- Developers building POS or ERP-like systems  
-- Open-source learning reference  
-
----
-
-## 🏷️ Keywords (SEO)  
-**Django Inventory Management System, PostgreSQL Inventory Project, Stock Management, Sales & Purchase, Django POS System, Open Source ERP**  
+## 📜 Changelog  
+- **v1.0.0** – Initial release with stock, sales, purchase & reporting.  
+- **v1.1.0** – Added user roles & PostgreSQL support.  
+- **v1.2.0** – Improved reports and bug fixes.  
 
 ---
 
@@ -93,11 +150,16 @@ Contributions are welcome! Feel free to fork this repo, submit issues, or create
 
 ---
 
+## 🔒 Security  
+If you discover any security issues, please report them via email instead of creating a public issue.  
+
+---
+
 ## ⭐ Support  
 If you like this project, please **star the repository** on GitHub. It helps others find it and supports the project growth.  
 
 ---
 
-## 🔹 Author
+## 🔹 Author  
 👨‍💻 Created & maintained by [Shahzaib Ali](https://github.com/shahzaib-1-no)  
 📬 For collaboration or freelance work: **sa4715228@gmail.com**  
