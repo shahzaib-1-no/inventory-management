@@ -46,16 +46,18 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 ---
 
 ## 📚 Table of Contents  
-- [Features](#-features)  
-- [Tech Stack](#️-tech-stack)
-- [Use Cases](#-use-cases)  
-- [Installation](#️-installation)  
-- [Screenshots](#-screenshots)  
-- [Changelog](#-changelog)  
-- [License](#-license)  
-- [Contributing](#-contributing)  
-- [Support](#-support)  
-- [Author](#-author)  
+
+- [🚀 Features](#-features)  
+- [🛠️ Tech Stack](#️-tech-stack)  
+- [📈 Use Cases](#-use-cases)  
+- [⚙️ Installation Guide](#️-installation-guide)  
+- [📸 Screenshots](#-screenshots)  
+- [📝 Changelog](#-changelog)  
+- [📜 License](#-license)  
+- [🤝 Contributing](#-contributing)  
+- [🔒 Security](#-security)  
+- [⭐ Support](#-support)  
+- [👨‍💻 Author](#-author)  
 
 ---
 

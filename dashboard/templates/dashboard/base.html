@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Dashboard | IMS {% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Style CSS -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet" />
+
+    <style></style>
+  </head>
+  <body>
+
+     <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <a href="index.html" class="brand-logo">
+        <i class="bi bi-shop"></i>
+        <span style="font-size: x-small;">Envento Management System (EMS)</span>
+      </a>
+
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link ">
+            <i class="bi bi-speedometer2"></i>
+            <span>Overview</span>
+          </a>
+        </li>
+        <!-- Admin -->
+        <li class="nav-header">
+          <span>Admin</span>
+        </li>
+        <!-- Users -->
+        <li class="nav-item">
+          <a href="#users" class="nav-link">
+            <i class="bi bi-people"></i>
+            <span>Users</span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="#all-users" class="nav-link-sub">All Users</a></li>
+            <li><a href="#active-users" class="nav-link-sub">Active Users</a></li>
+            <li><a href="#user-roles" class="nav-link-sub">User Roles</a></li>
+            <li><a href="#add-user" class="nav-link-sub">Add User</a></li>
+          </ul>
+        </li>
+        <!-- Inventory -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="bi bi-box"></i>
+            <span>Inventory</span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="product_list.html" class="nav-link-sub">Product List</a></li>
+            <li><a href="add_product.html" class="nav-link-sub">Add Product</a></li>
+            <li><a href="category.html" class="nav-link-sub">Category & Subcategory</a></li>
+            <li><a href="stock_adjustment.html" class="nav-link-sub">Stock Adjustment</a></li>
+            <li><a href="low_stock.html" class="nav-link-sub">Low Stock Items</a></li>
+            <li><a href="damaged_expired.html" class="nav-link-sub">Damaged/Expired Items</a></li>
+          </ul>
+        </li>
+        <!-- Sales  -->
+        <li class="nav-item">
+          <a href="#sales" class="nav-link">
+            <i class="bi bi-receipt"></i>
+            <span>Sales </span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="sales.html" class="nav-link-sub">New Sale / POS</a></li>
+            <li><a href="sales_list.html" class="nav-link-sub">Sales List</a></li>
+            <li><a href="returns_refunds.html" class="nav-link-sub">Returns & Refunds</a></li>
+            <li><a href="customer_orders.html" class="nav-link-sub">Customer Orders</a></li>
+          </ul>
+        </li>
+        <!-- Purchases  -->
+        <li class="nav-item">
+          <a href="#purchases" class="nav-link">
+            <i class="bi bi-cart-plus"></i>
+            <span>Purchases </span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="purchase_order.html" class="nav-link-sub">New Purchase Order</a></li>
+            <li><a href="purchase_list.html" class="nav-link-sub">Purchase List</a></li>
+            <li><a href="supplier_invoice.html" class="nav-link-sub">Supplier Invoices</a></li>
+            <li><a href="goods_received_notes.html" class="nav-link-sub">Goods Received Notes</a></li>
+          </ul>
+        </li>
+        <!-- Suppliers  -->
+        <li class="nav-item">
+          <a href="#suppliers" class="nav-link">
+            <i class="bi bi-truck"></i>
+            <span>Suppliers </span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="all_suppliers.html" class="nav-link-sub">All Suppliers</a></li>
+            <li><a href="add_supplier.html" class="nav-link-sub">Add Supplier</a></li>
+            <li><a href="supplier_ledger.html" class="nav-link-sub">Supplier Ledger</a></li>
+          </ul>
+        </li>
+        <!-- Customers  -->
+        <li class="nav-item">
+          <a href="#customers" class="nav-link">
+            <i class="bi bi-people"></i>
+            <span>Customers </span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="all_customers.html" class="nav-link-sub">All Customers</a></li>
+            <li><a href="add_customer.html" class="nav-link-sub">Add Customer</a></li>
+            <li><a href="customer_ledger.html" class="nav-link-sub">Customer Ledger</a></li>
+          </ul>
+        </li>
+        <!-- Reports  -->
+        <li class="nav-item">
+          <a href="#reports" class="nav-link">
+            <i class="bi bi-graph-up"></i>
+            <span>Reports </span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="sales_report.html" class="nav-link-sub">Sales Report (daily, monthly, custom)</a></li>
+            <li><a href="purchase_report.html" class="nav-link-sub">Purchase Report</a></li>
+            <li><a href="stock_report.html" class="nav-link-sub">Stock Report</a></li>
+            <li><a href="profit_loss_report.html" class="nav-link-sub">Profit & Loss Report</a></li>
+            <li><a href="tax_report.html" class="nav-link-sub">Tax Report</a></li>
+
+          </ul>
+        </li>
+        <!-- Users & Roles  -->
+        <li class="nav-item">
+          <a href="#users-roles" class="nav-link {% if '/dashboard/' in request.path %}active{% endif %}">
+            <i class="bi bi-person-gear"></i>
+            <span>Users & Roles </span>
+          </a>
+          <ul class="nav-submenu {% if '/dashboard/' in request.path %}show{% endif %}">
+            <li><a href="all_users.html" class="nav-link-sub">All Users</a></li>
+            <li><a href="add_user.html" class="nav-link-sub">Add User</a></li>
+            <li><a href="{% url "user_role_and_permission" %}" class="nav-link-sub {% if request.path == '/dashboard/add_group/' %}active{% endif %}">Roles & Permissions</a></li>
+          </ul>
+        </li>
+        <!-- Settings -->
+        <li class="nav-item">
+          <a href="#settings" class="nav-link">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="company_profile.html" class="nav-link-sub">Company Profile</a></li>
+            <li><a href="tax_currency.html" class="nav-link-sub">Tax & Currency Settings</a></li>
+            <li><a href="payment_methods.html" class="nav-link-sub">Payment Methods</a></li>
+            <li><a href="notification_settings.html" class="nav-link-sub">Notification Settings</a></li>
+            <li><a href="backup_restore.html" class="nav-link-sub">Backup & Restore</a></li>
+          </ul>
+        </li>
+        <!-- Supervisor -->
+        <li class="nav-header">
+          <span>Supervisor</span>
+        </li>
+        <!-- Cashier -->
+        <li class="nav-header">
+          <span>Cashier</span>
+        </li>
+        <!-- Stock Handler -->
+        <li class="nav-header">
+          <span>Stock Handler</span>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+      <!-- Top Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <button class="btn btn-outline-primary me-3" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <h4 class="mb-0 text-dark" id="pageTitle">Dashboard Overview</h4>
+
+          <div class="ms-auto d-flex align-items-center">
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <img
+                  src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg"
+                  alt="Profile"
+                  class="profile-avatar-sm me-2"
+                />
+                <span class="ms-2 d-none d-sm-inline">Admin</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-person"></i> Profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-gear"></i> Settings</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'logout' %}"
+                    ><i class="bi bi-box-arrow-right"></i> Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Dashboard Content -->
+      <div class="container-fluid p-4">
+        <div id="contentArea">
+            {% block content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Main JS -->
+    <script src="{% static "js/main.js" %}"></script>
+
+    <script></script>
+  </body>
+</html>

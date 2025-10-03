@@ -1,0 +1,635 @@
+{% extends "dashboard/base.html" %} {% block content %}
+<div class="row mb-3">
+  <div class="col-lg-12">
+    <div class="stat-card">
+      <!-- Page Header -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 class="fw-bold text-dark mb-1">Roles & Permissions</h2>
+          <p class="text-muted mb-0">
+            Manage user roles and their access permissions
+          </p>
+        </div>
+        <!-- Add New Role Button -->
+        <button 
+          class="btn btn-primary px-4" 
+          data-bs-toggle="modal" 
+          data-bs-target="#addRoleModal"
+        >
+          <i class="bi bi-plus-circle me-2"></i> Add New Role
+        </button>
+        
+      </div> 
+      <!-- Roles List Section -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+          <h5 class="card-title mb-0 fw-semibold">Current Roles</h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="border-0 px-4 py-3 fw-semibold">Role Name</th>
+                  <th class="border-0 px-4 py-3 fw-semibold">Description</th>
+                  <th class="border-0 px-4 py-3 fw-semibold text-center">
+                    Users Assigned
+                  </th>
+                  <th class="border-0 px-4 py-3 fw-semibold text-center">
+                    Status
+                  </th>
+                  <th class="border-0 px-4 py-3 fw-semibold text-center">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="bg-danger bg-opacity-10 text-danger rounded-circle p-2 me-3"
+                      >
+                        <i class="bi bi-shield-fill"></i>
+                      </div>
+                      <strong>Super Admin</strong>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-muted">
+                    Full system access with all permissions
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <span class="badge bg-primary rounded-pill">2 Users</span>
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <span class="badge bg-success">Active</span>
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <button
+                      class="btn btn-sm btn-outline-primary me-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editRoleModal"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" disabled>
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="bg-warning bg-opacity-10 text-warning rounded-circle p-2 me-3"
+                      >
+                        <i class="bi bi-person-gear"></i>
+                      </div>
+                      <strong>Manager</strong>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-muted">
+                    Can manage inventory and view reports
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <span class="badge bg-primary rounded-pill">5 Users</span>
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <span class="badge bg-success">Active</span>
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <button
+                      class="btn btn-sm btn-outline-primary me-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editRoleModal"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="bg-info bg-opacity-10 text-info rounded-circle p-2 me-3"
+                      >
+                        <i class="bi bi-person-check"></i>
+                      </div>
+                      <strong>Staff</strong>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-muted">
+                    Basic inventory operations and order processing
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <span class="badge bg-primary rounded-pill">12 Users</span>
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <span class="badge bg-success">Active</span>
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <button
+                      class="btn btn-sm btn-outline-primary me-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editRoleModal"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="bg-secondary bg-opacity-10 text-secondary rounded-circle p-2 me-3"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </div>
+                      <strong>Viewer</strong>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-muted">
+                    Read-only access to inventory and reports
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <span class="badge bg-light text-dark rounded-pill"
+                      >0 Users</span
+                    >
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <span class="badge bg-warning">Inactive</span>
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <button
+                      class="btn btn-sm btn-outline-primary me-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editRoleModal"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Permissions Matrix Section -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0 fw-semibold">Permissions Matrix</h5>
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                Select Role: Manager
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Super Admin</a></li>
+                <li><a class="dropdown-item active" href="#">Manager</a></li>
+                <li><a class="dropdown-item" href="#">Staff</a></li>
+                <li><a class="dropdown-item" href="#">Viewer</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="border-0 px-4 py-3 fw-semibold">
+                    Module / Feature
+                  </th>
+                  <th class="border-0 px-3 py-3 text-center fw-semibold">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="selectAllView"
+                      />
+                      <label
+                        class="form-check-label fw-semibold"
+                        for="selectAllView"
+                        >View</label
+                      >
+                    </div>
+                  </th>
+                  <th class="border-0 px-3 py-3 text-center fw-semibold">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="selectAllCreate"
+                      />
+                      <label
+                        class="form-check-label fw-semibold"
+                        for="selectAllCreate"
+                        >Create</label
+                      >
+                    </div>
+                  </th>
+                  <th class="border-0 px-3 py-3 text-center fw-semibold">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="selectAllEdit"
+                      />
+                      <label
+                        class="form-check-label fw-semibold"
+                        for="selectAllEdit"
+                        >Edit</label
+                      >
+                    </div>
+                  </th>
+                  <th class="border-0 px-3 py-3 text-center fw-semibold">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="selectAllDelete"
+                      />
+                      <label
+                        class="form-check-label fw-semibold"
+                        for="selectAllDelete"
+                        >Delete</label
+                      >
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-speedometer2 text-primary me-3"></i>
+                      <strong>Dashboard</strong>
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        disabled
+                      />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        disabled
+                      />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        disabled
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr class="bg-light bg-opacity-50">
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-box text-success me-3"></i>
+                      <strong>Products</strong>
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-cart text-warning me-3"></i>
+                      <strong>Orders</strong>
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                </tr>
+                <tr class="bg-light bg-opacity-50">
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-people text-info me-3"></i>
+                      <strong>Users</strong>
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-graph-up text-danger me-3"></i>
+                      <strong>Reports</strong>
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                </tr>
+                <tr class="bg-light bg-opacity-50">
+                  <td class="px-4 py-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-gear text-secondary me-3"></i>
+                      <strong>System Settings</strong>
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="p-4 bg-light bg-opacity-50">
+            <button class="btn btn-success me-2">Save Permissions</button>
+            <button class="btn btn-outline-secondary">Reset Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Add New Role Modal -->
+      <div class="modal fade" id="addRoleModal"  tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold">Add New Role</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <form>
+                <div class="row">
+                  <!-- Role Name -->
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="roleName" class="form-label fw-semibold">
+                        Role Name <span class="text-danger">*</span>
+                      </label>
+                      <input 
+                        type="text" 
+                        class="form-control" 
+                        id="roleName" 
+                        placeholder="Enter role name" 
+                        required
+                      >
+                    </div>
+                  </div>
+                  
+                  <!-- Role Status -->
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="roleStatus" class="form-label fw-semibold">Status</label>
+                      <select class="form-select" id="roleStatus">
+                        <option value="active" selected>Active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Role Description -->
+                <div class="mb-3">
+                  <label for="roleDescription" class="form-label fw-semibold">Description</label>
+                  <textarea 
+                    class="form-control" 
+                    id="roleDescription" 
+                    rows="3" 
+                    placeholder="Enter role description (optional)"
+                  ></textarea>
+                </div>
+
+                <!-- Quick Permission Templates -->
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Quick Permission Templates</label>
+                  <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm">Full Access</button>
+                    <button type="button" class="btn btn-outline-success btn-sm">Manager Level</button>
+                    <button type="button" class="btn btn-outline-info btn-sm">Staff Level</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">View Only</button>
+                  </div>
+                </div>
+
+                <!-- Note -->
+                <div class="alert alert-info d-flex align-items-start">
+                  <i class="bi bi-info-circle me-2 mt-1"></i>
+                  <small>
+                    <strong>Note:</strong> Role name must be unique. 
+                    You can set detailed permissions after creating the role.
+                  </small>
+                </div>
+              </form>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary">Create Role</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Edit Role Modal -->
+      <div class="modals fade" id="editRoleModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold">Edit Role - Manager</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="editRoleName" class="form-label fw-semibold"
+                        >Role Name <span class="text-danger">*</span></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editRoleName"
+                        value="Manager"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="editRoleStatus" class="form-label fw-semibold"
+                        >Status</label
+                      >
+                      <select class="form-select" id="editRoleStatus">
+                        <option value="active" selected>Active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label
+                    for="editRoleDescription"
+                    class="form-label fw-semibold"
+                    >Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="editRoleDescription"
+                    rows="3"
+                  >
+                    Can manage inventory and view reports
+                  </textarea>
+                </div>
+                <div class="alert alert-warning d-flex align-items-start">
+                  <i class="bi bi-exclamation-triangle me-2 mt-1"></i>
+                  <div>
+                    <small
+                      ><strong>Warning:</strong> This role is currently assigned
+                      to 5 users. Changes will affect their access
+                      immediately.</small
+                    >
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button type="button" class="btn btn-warning">Update Role</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

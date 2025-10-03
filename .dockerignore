@@ -1,0 +1,33 @@
+# Python cache & compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database / logs / env
+*.sqlite3
+*.log
+.env
+venv/
+
+# Git
+.git
+.gitignore
+
+# Docker overrides
+docker-compose.override.yml
+
+# OS files
+*.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Media & static generated files
+/media/
+staticfiles/
+
+# Testing / Coverage
+.pytest_cache/
+htmlcov/
