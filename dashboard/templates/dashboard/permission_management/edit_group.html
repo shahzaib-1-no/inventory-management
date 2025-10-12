@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %}Edit Group{% endblock %} {%block
+content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Edit Group</h3>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %} {% for field in form %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }} {% if field.help_text %}
+            <small id="emailHelp" class="form-text text-muted">
+              {{ field.help_text }}
+            </small>
+            {% endif %}
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save"></i> Save
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
