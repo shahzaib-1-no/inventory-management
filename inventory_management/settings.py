@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+
 load_dotenv()  # Loads environment variables from .env file
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-wwtp96tv#0sm)5iyjn=ay_91o2^ub%k18htzfef21xd+dy320r"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,9 +42,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "dashboard",
-        # Third-party / dev tools
-    'django.contrib.humanize',  # Optional, for formatting in templates
-    'debug_toolbar',            # agar use karna ho development ke liye
+    # Third-party / dev tools
+    "django.contrib.humanize",  # Optional, for formatting in templates
+    "debug_toolbar",  # agar use karna ho development ke liye
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware", # optional for development only 
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # optional for development only
 ]
 
 ROOT_URLCONF = "inventory_management.urls"
@@ -62,13 +63,14 @@ ROOT_URLCONF = "inventory_management.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        'DIRS': [BASE_DIR / 'templates'],  # Global templates folder
+        "DIRS": [BASE_DIR / "templates"],  # Global templates folder
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "inventory_management.context_processors.global_permissions",
             ],
         },
     },
@@ -83,11 +85,11 @@ WSGI_APPLICATION = "inventory_management.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv('POSTGRES_DB'),
-        "USER": os.getenv('POSTGRES_USER'),
-        "PASSWORD": os.getenv('POSTGRES_PASSWORD'),
-        "HOST": os.getenv('POSTGRES_HOST'),
-        "PORT": os.getenv('POSTGRES_PORT'),
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "PORT": os.getenv("POSTGRES_PORT"),
     }
 }
 
@@ -127,19 +129,37 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / 'static']  # Optional, global static folder
+STATICFILES_DIRS = [BASE_DIR / "static"]  # Optional, global static folder
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
-LOGIN_URL = 'login'          # login view ka URL name
-LOGIN_REDIRECT_URL = 'dashboard'  # successful login ke baad
-LOGOUT_REDIRECT_URL = 'login'     # logout ke baad
+LOGIN_URL = "login"  # login view ka URL name
+LOGIN_REDIRECT_URL = "dashboard"  # successful login ke baad
+LOGOUT_REDIRECT_URL = "login"  # logout ke baad
 
 if DEBUG:
-    INTERNAL_IPS = ['127.0.0.1']  # Debug toolbar ke liye
+    INTERNAL_IPS = ["127.0.0.1"]  # Debug toolbar ke liye
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Only for Production Environment
+# Security
+
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+
+# Template caching for performance
+# TEMPLATES[0]['OPTIONS']['loaders'] = [
+#     ('django.template.loaders.cached.Loader', [
+#         'django.template.loaders.filesystem.Loader',
+#         'django.template.loaders.app_directories.Loader',
+#     ]),
+# ]
