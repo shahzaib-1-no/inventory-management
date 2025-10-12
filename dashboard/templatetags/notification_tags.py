@@ -1,6 +1,6 @@
 from django import template
-from dashboard.models import Notification
 
+from dashboard.models import Notification
 
 register = template.Library()
 

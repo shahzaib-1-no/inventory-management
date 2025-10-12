@@ -1,6 +1,7 @@
-from dashboard.factories import RegisterFormFactory
+from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User, Group
+
+from dashboard.factories import RegisterFormFactory
 
 
 class Command(BaseCommand):

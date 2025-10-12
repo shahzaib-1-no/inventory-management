@@ -1,24 +1,20 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import authenticate, login as user_login, logout as user_logout
 from django.contrib import messages
-from dashboard.forms import (
-    LoginForm,
-    GroupForm,
-    RegisterForm,
-    EditUserForm,
-    EditGroupForm,
-)
-from inventory_management.decorators import permission_required_message
-from django.urls import reverse_lazy
-from django.contrib.auth.models import User, Group
-from django.db.models import Count
-from django.shortcuts import get_object_or_404
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as user_login
+from django.contrib.auth import logout as user_logout
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import Group, User
 from django.db import transaction
-from dashboard.models import Notification
-from django.db.models import Q
-from django_datatables_view.base_datatable_view import BaseDatatableView
+from django.db.models import Count, Q
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.utils.html import format_html
+from django_datatables_view.base_datatable_view import BaseDatatableView
+
+from dashboard.forms import (EditGroupForm, EditUserForm, GroupForm, LoginForm,
+                             RegisterForm)
+from dashboard.models import Notification
+from inventory_management.decorators import permission_required_message
 
 
 @login_required
