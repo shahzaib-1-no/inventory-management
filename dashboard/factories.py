@@ -1,11 +1,10 @@
 import random
-import factory
-from faker import Faker
-from dashboard.forms import (
-    RegisterForm,
-)
-from django.contrib.auth.models import User, Group
 
+import factory
+from django.contrib.auth.models import Group, User
+from faker import Faker
+
+from dashboard.forms import RegisterForm
 
 fake = Faker()
 

@@ -1,7 +1,7 @@
 from django import forms
-from django.contrib.auth.models import Group, Permission
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import Group, Permission
 
 User = get_user_model()
 
