@@ -95,38 +95,50 @@
         </li>
         {% endif %}
         <!-- Inventory -->
+        {% if can_view_product or can_view_category or can_add_product %}
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a
+            href="#"
+            class="nav-link {% if 'dashboard/inventory/product/' in request.path %}active{% endif %}"
+          >
             <i class="bi bi-box"></i>
             <span>Inventory</span>
           </a>
-          <ul class="nav-submenu">
+          <ul
+            class="nav-submenu {% if 'dashboard/inventory/product/' in request.path %}show{% endif %}"
+          >
+            {% if can_view_product %}
             <li>
-              <a href="product_list.html" class="nav-link-sub">Product List</a>
+              <a
+                href="{% url 'product_list' %}"
+                class="nav-link-sub {% if request.resolver_match.url_name == 'product_list' %}active{% endif %}"
+                >Product List</a
+              >
             </li>
+            {% endif %}<b
+            ></b>
+            {% if can_add_product %}
             <li>
-              <a href="add_product.html" class="nav-link-sub">Add Product</a>
+              <a
+                href=" {% url 'add_product' %}"
+                class="nav-link-sub {% if request.resolver_match.url_name == 'add_product' %}active{% endif %}"
+                >Add Product</a
+              >
             </li>
+            {% endif %}<b
+            ></b>
+            {% if can_view_category %}
             <li>
-              <a href="category.html" class="nav-link-sub"
+              <a
+                href='{% url "all_category" %}'
+                class="nav-link-sub {% if request.resolver_match.url_name == 'all_category' %}active{% endif %}"
                 >Category & Subcategory</a
               >
             </li>
-            <li>
-              <a href="stock_adjustment.html" class="nav-link-sub"
-                >Stock Adjustment</a
-              >
-            </li>
-            <li>
-              <a href="low_stock.html" class="nav-link-sub">Low Stock Items</a>
-            </li>
-            <li>
-              <a href="damaged_expired.html" class="nav-link-sub"
-                >Damaged/Expired Items</a
-              >
-            </li>
+            {% endif %}
           </ul>
         </li>
+        {% endif %}
         <!-- Sales  -->
         <li class="nav-item">
           <a href="#sales" class="nav-link">
@@ -182,27 +194,83 @@
           </ul>
         </li>
         <!-- Suppliers  -->
+        {% if can_view_supplier or can_add_supplier or can_edit_supplier %}
         <li class="nav-item">
-          <a href="#suppliers" class="nav-link">
+          <a
+            href="#suppliers"
+            class="nav-link {% if '/dashboard/inventory/supplier/' in request.path %}active{% endif %}"
+          >
             <i class="bi bi-truck"></i>
             <span>Suppliers </span>
           </a>
-          <ul class="nav-submenu">
+          <ul
+            class="nav-submenu {% if '/dashboard/inventory/supplier/' in request.path %}show{% endif %}"
+          >
+            {% if can_view_supplier %}
             <li>
-              <a href="all_suppliers.html" class="nav-link-sub"
+              <a
+                href='{% url "all_supplier" %}'
+                class="nav-link-sub {% if request.resolver_match.url_name == 'all_supplier' %}active{% endif %}"
                 >All Suppliers</a
               >
             </li>
+            {% endif %}
+            <b></b
+            >{% if can_add_supplier%}
             <li>
-              <a href="add_supplier.html" class="nav-link-sub">Add Supplier</a>
+              <a
+                href='{% url "add_supplier" %}'
+                class="nav-link-sub {% if request.resolver_match.url_name == 'add_supplier' %}active{% endif %}"
+                >Add Supplier</a
+              >
             </li>
+            {% endif %}
+            <b></b>
+            {% if can_view_supplier_ledger %}
             <li>
-              <a href="supplier_ledger.html" class="nav-link-sub"
+              <a
+                href='{% url "supplier_ledger" %}'
+                class="nav-link-sub {% if request.resolver_match.url_name == 'supplier_ledger' %}active{% endif %}"
                 >Supplier Ledger</a
               >
             </li>
+            {% endif %}
           </ul>
         </li>
+        {% endif %}
+        <!-- Warehouse  -->
+        {% if can_view_warehouse or can_add_warehouse or can_edit_warehouse %}
+        <li class="nav-item">
+          <a
+            href="#Warehouse"
+            class="nav-link {% if '/dashboard/inventory/warehouse/' in request.path %}active{% endif %}"
+          >
+            <i class="bi bi-building"></i>
+            <span>Warehouse </span>
+          </a>
+          <ul
+            class="nav-submenu {% if '/dashboard/inventory/warehouse/' in request.path %}show{% endif %}"
+          >
+            {% if can_add_warehouse or can_edit_warehouse%}
+            <li>
+              <a
+                href='{% url "warehouse" %}'
+                class="nav-link-sub {% if request.resolver_match.url_name == 'warehouse' %}active{% endif %}"
+                >Warehouse</a
+              >
+            </li>
+            {% endif %} {% if can_view_warehouse %}
+            <li>
+              <a
+                href='{% url "warehouse_list" %}'
+                class="nav-link-sub {% if request.resolver_match.url_name == 'warehouse_list' %}active{% endif %}"
+                >Warehouse List</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </li>
+        {% endif %}
         <!-- Customers  -->
         <li class="nav-item">
           <a href="#customers" class="nav-link">
@@ -445,24 +513,23 @@
           ></button>
         </div>
         {% endfor %} {% endif %} {% endcomment %}
-
-        <!-- Form Non-field Errors -->
-        {% if form.non_field_errors %}
+        <!-- End of Django Messages -->
+        <!-- Form Messages -->
+        {% comment %} {% if form.errors %}
         <div
           class="alert alert-danger alert-dismissible fade show"
           role="alert"
         >
-          {% for error in form.non_field_errors %}
-          <div>{{ error }}</div>
-          {% endfor %}
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
+          <strong>Error!</strong> Please correct the following error(s):
+          <ul>
+            {% for field in form %} {% if field.errors %}
+            <li>{{ field.label }}: {{ field.errors.as_text }}</li>
+            {% endif %} {% endfor %}
+          </ul>
         </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
+        <!-- End of Form Messages -->
+
         <div id="contentArea">{% block content %}{% endblock %}</div>
       </div>
     </div>

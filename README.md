@@ -18,29 +18,21 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
   <img src="https://img.shields.io/github/repo-size/shahzaib-1-no/inventory-management?logo=github" />
 </p>
 
-<!-- Build / Quality / Security / Maintenance Badges -->
 <p align="center">
-
-  <!-- Build Status -->
   <img src="https://github.com/shahzaib-1-no/inventory-management/actions/workflows/django.yml/badge.svg" />
-  <!-- Code Coverage -->
   <a href="https://codecov.io/gh/shahzaib-1-no/inventory-management">
     <img src="https://codecov.io/gh/shahzaib-1-no/inventory-management/branch/main/graph/badge.svg" />
   </a>
-  <!-- Code Quality -->
   <a href="https://github.com/psf/black">
     <img src="https://img.shields.io/badge/code%20style-black-000000.svg" />
   </a>
   <img src="https://img.shields.io/badge/lint-Flake8-blue" />
   <img src="https://img.shields.io/badge/lint-Pylint-yellow" />
-  <!-- Security -->
   <a href="https://snyk.io/test/github/shahzaib-1-no/inventory-management">
     <img src="https://snyk.io/test/github/shahzaib-1-no/inventory-management/badge.svg" />
   </a>
   <img src="https://img.shields.io/badge/security-Bandit-red" />
-  <!-- Maintenance -->
   <img src="https://img.shields.io/github/contributors/shahzaib-1-no/inventory-management" />
-
 </p>
 
 ---
@@ -51,9 +43,10 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 - [🛠️ Tech Stack](#️-tech-stack)
 - [📈 Use Cases](#-use-cases)
 - [⚙️ Installation Guide](#️-installation-guide)
+- [⚙️ Dummy Data Commands (Optional)](#-dummy-data-commands-optional)
 - [📸 Screenshots](#-screenshots)
-- [📝 Changelog](#-changelog)
-- [📜 License](#-license)
+- [📜 Changelog](#-changelog)
+- [📄 License](#-license)
 - [🤝 Contributing](#-contributing)
 - [🔒 Security](#-security)
 - [⭐ Support](#-support)
@@ -63,20 +56,20 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 
 ## 🚀 Features
 
-- 📦 **Stock Management** – Add, update, and track inventory in real-time _(Planned Feature)_.
-- 💰 **Sales Management** – Record sales transactions and generate invoices _(Planned Feature)_.
-- 🛒 **Purchase Management** – Manage supplier purchases and expenses _(Planned Feature)_.
-- 🤝 **Supplier Management** – Maintain supplier profiles, contact details, and transaction history _(Planned Feature)_.
-- 📊 **Reports & Analytics** – Generate daily, monthly, and custom reports using Chart.js _(Planned Feature)_.
-- 👤 **User Management** – Manage users, roles, and permissions (RBAC integration).
-- 🔐 **Secure Authentication** – Django’s built-in auth system with login/logout and role-based access.
-- 📁 **Role-Based Access Control (RBAC)** – Fine-grained permission handling for each module.
-- ⚙️ **Dynamic DataTables Integration** – Server-side pagination, sorting, and searching.
-- 🚨 **SweetAlert Integration** – Elegant alerts for confirmations and success/error messages.
-- 🧾 **Export & Reporting** – Export data to Excel or PDF for business analytics _(Planned Feature)_.
-- 🧱 **Modular Architecture** – Organized Django apps for Users, Roles, Products, Sales, and Purchases.
-- 🌐 **Dockerized Setup** – Pre-configured Docker environment for local and production use.
-- 🧩 **Responsive Dashboard** – Clean, mobile-friendly UI built with Bootstrap 5.
+- 📦 **Product Management** – Add, update, and track inventory in real-time _(🚧 Planned Feature)_
+- 🏢 **Warehouse Management** – Manage storage locations and stock distribution _(🚧 Planned Feature)_
+- 🛒 **Purchase Management** – Manage supplier purchases, purchase orders, and expenses _(🚧 Planned Feature)_
+- 🤝 **Supplier Management** – Maintain supplier profiles, contact details, and transaction history _(🚧 Planned Feature)_
+- 📊 **Reports & Analytics** – Generate daily, monthly, and custom reports using Chart.js _(🚧 Planned Feature)_
+- 👤 **User Management** – Manage users, roles, and permissions (RBAC integration)
+- 🔐 **Secure Authentication** – Django’s built-in auth system with login/logout and role-based access
+- 📁 **Role-Based Access Control (RBAC)** – Fine-grained permission handling for each module
+- ⚙️ **Dynamic DataTables Integration** – Server-side pagination, sorting, and searching
+- 🚨 **SweetAlert2 Integration** – Elegant alerts for confirmations and success/error messages
+- 🧾 **Export & Reporting** – Export data to Excel or PDF for business analytics _(🚧 Planned Feature)_
+- 🧱 **Modular Architecture** – Organized Django apps for Users, Roles, Products, and Inventory
+- 🌐 **Dockerized Setup** – Pre-configured Docker environment for local and production use
+- 🧩 **Responsive Dashboard** – Clean, mobile-friendly UI built with Bootstrap 5
 
 ---
 
@@ -86,11 +79,11 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 - **Database:** PostgreSQL
 - **Frontend:** Bootstrap 5, HTML5, CSS3, JavaScript (ES6)
 - **Libraries & Tools:**
-  - Chart.js → For interactive charts and reports
+
   - DataTables → For server-side data tables
   - SweetAlert2 → For confirmation dialogs and alerts
   - Django Environ → For environment variable management
-  - Django Debug Toolbar → For debugging in development
+
 - **Authentication & Authorization:** Django Auth System + Built-in RBAC
 - **Containerization:** Docker & Docker Compose
 - **Code Quality:** Black, Flake8, isort
@@ -107,7 +100,7 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Installation Guide
 
 1. **Clone the repository**
 
@@ -130,10 +123,26 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
    pip install -r requirements.txt
    ```
 
-4. **Setup database (PostgreSQL)**
+4. **⚙️ Set up the database (PostgreSQL) and rename the `.env.example` file to `.env`.**
+   Make sure to **fill in all required environment variables** before running the project.
+   🔸 _This step is mandatory — the project won’t run without proper configuration._
+   (See example file → [.env.example](./.env.example))
 
-   - Create a PostgreSQL database (example: `inventory_db`).
-   - Update settings in `settings.py`.
+   ```bash
+   # 🔐 Django Secret Key (replace with your own)
+   # To generate a new key, run:
+   # python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+
+   SECRET_KEY=your-secret-key-here
+
+   # 🗄️ Database Configuration
+   POSTGRES_DB=your_database_name
+   POSTGRES_USER=your_db_user
+   POSTGRES_PASSWORD=your_db_password
+   POSTGRES_HOST=localhost
+   POSTGRES_PORT=5432
+
+   ```
 
 5. **Run migrations**
 
@@ -148,9 +157,94 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
    ```
 
 7. **Start server**
+
    ```bash
    python manage.py runserver
    ```
+
+---
+
+## ⚙️ Dummy Data Commands (Optional)
+
+These commands help you **quickly generate sample data** for testing or demo purposes.
+Each command supports an optional `--total` argument to specify the number of records to create (default is **10**).
+
+---
+
+### 🧩 Seed Roles & Permissions
+
+Populates the database with default **roles** (groups) and **permissions** for testing access control.
+
+```bash
+python manage.py seed_group --total 10
+```
+
+**Default:** 10 groups
+**Optional:** `--total` to specify how many groups to create
+
+---
+
+### 👥 Seed Users
+
+Generates dummy **user accounts** linked with random roles.
+Useful for testing authentication, role-based access, or dashboards.
+
+```bash
+python manage.py seed_user --total 10
+```
+
+**Default:** 10 users
+**Optional:** `--total` for a custom number
+
+---
+
+### 🏷️ Seed Categories
+
+Creates fake **product categories** to organize your data and make testing product listings easier.
+
+```bash
+python manage.py seed_category --total 10
+```
+
+**Default:** 10 categories
+
+---
+
+### 🏢 Seed Warehouses
+
+Adds **dummy warehouse records** to simulate stock management or logistics scenarios.
+
+```bash
+python manage.py seed_warehouse --total 10
+```
+
+**Default:** 10 warehouses
+
+---
+
+### 🚚 Seed Suppliers
+
+Generates **fake supplier entries** with random company names and contact details.
+Ideal for supply chain or procurement module testing.
+
+```bash
+python manage.py seed_supplier --total 10
+```
+
+**Default:** 10 suppliers
+
+---
+
+### 📦 Seed Products
+
+Creates **sample product records** linked with categories, suppliers, and warehouses.
+Useful for testing inventory, pricing, or order management.
+
+```bash
+python manage.py seed_product --total 10
+```
+
+**Default:** 10 products
 
 ---
 
@@ -162,9 +256,11 @@ A complete **Inventory Management System** built with **Django** and **PostgreSQ
 
 ## 📜 Changelog
 
-- **v1.0.0** – Initial release with stock, sales, purchase & reporting.
-- **v1.1.0** – Added user roles & PostgreSQL support.
-- **v1.2.0** – Improved reports and bug fixes.
+- **v1.1.0** – Added Category, Inventory, Warehouse, and Supplier management modules with CRUD functionality.
+- **v1.0.0** – Introduced RBAC (Role-Based Access Control), User Management, Roles & Permissions CRUD, SweetAlert2 integration, and AJAX-based DataTables.
+- **v0.1.0** – Initial project setup with Docker, PostgreSQL, Authentication system, base templates, and static file configuration.
+
+👉 See full changelog in [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 
@@ -196,4 +292,4 @@ If you like this project, please **star the repository** on GitHub. It helps oth
 ## 🔹 Author
 
 👨‍💻 Created & maintained by [Shahzaib Ali](https://github.com/shahzaib-1-no)
-📬 For collaboration or freelance work: **sa4715228@gmail.com**
+📬 For collaboration or freelance work: **[sa4715228@gmail.com](mailto:sa4715228@gmail.com)**

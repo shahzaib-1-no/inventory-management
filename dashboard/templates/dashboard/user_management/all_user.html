@@ -4,22 +4,32 @@
     <h2 class="card-title mb-0 fs-4 d-flex align-items-center">
       <i class="bi bi-people-fill me-2"></i> All Users
     </h2>
-    <a
-      href="{% url 'add_user' %}"
-      class="btn btn-sm btn-success d-flex align-items-center"
-    >
-      <i class="bi bi-person-plus me-1"></i> Add New User
-    </a>
+    <div>
+      <a
+        href="{% url 'add_user' %}"
+        class="btn btn-sm btn-success d-flex align-items-center me-2"
+      >
+        <i class="bi bi-person-plus me-1"></i> Add New User
+      </a>
+      <button
+        id="bulkDeleteBtn"
+        class="btn btn-sm btn-danger d-flex align-items-center"
+      >
+        <i class="bi bi-trash me-1"></i> Delete Selected
+      </button>
+    </div>
   </div>
 
-  <div class="card-body">
-    <!-- Users Table -->
+  <div class="card-body table-responsive">
     <table
       class="table table-striped table-bordered align-middle"
       id="userTable"
     >
       <thead class="bg-light">
         <tr>
+          <th>
+            <input type="checkbox" id="selectAll" class="form-check-input" />
+          </th>
           <th>Sno</th>
           <th>Username</th>
           <th>First Name</th>
@@ -31,7 +41,6 @@
       <tbody></tbody>
     </table>
 
-    <!-- No Users Message -->
     <div id="noUserMessage" class="text-center py-5 my-4 d-none">
       <h5 class="fw-bold text-secondary mb-2">
         <i class="fa-solid fa-user-slash text-danger me-2"></i>No Users Found
@@ -46,7 +55,6 @@
 {% endblock %} {% block script %}
 <script>
   $(document).ready(function () {
-    // Initialize DataTable
     const table = $('#userTable').DataTable({
       responsive: true,
       autoWidth: false,
@@ -56,7 +64,6 @@
         url: '{% url "ajax_user_list_data" %}',
         type: 'GET',
         dataSrc: function (json) {
-          // Handle empty data case
           if (!json.data || json.data.length === 0) {
             $('#noUserMessage').removeClass('d-none');
             $('#userTable').hide();
@@ -69,57 +76,44 @@
       },
       order: [[0, 'desc']],
       pageLength: 10,
-      lengthMenu: [5, 10, 25, 50, 100],
-      language: {
-        search: '🔍 Search:',
-        lengthMenu: 'Show _MENU_ ',
-        zeroRecords: 'No matching users found',
-        info: 'Showing _START_ to _END_ of _TOTAL_ users',
-        infoEmpty: 'No users available',
-        infoFiltered: '(filtered from _MAX_ total users)',
-      },
       columns: [
+        {
+          data: 'id',
+          render: function (data, type, row) {
+            return `<input type="checkbox" class="user-checkbox" value="${data}">`;
+          },
+          orderable: false,
+          searchable: false,
+          className: 'text-center',
+        },
         {
           data: 'SnO',
           name: 'SnO',
           searchable: false,
           className: 'text-center fw-bold',
         },
-        {
-          data: 'Username',
-          name: 'Username',
-          searchable: true,
-          className: 'text-center',
-        },
-        {
-          data: 'First Name',
-          name: 'First Name',
-          searchable: true,
-          className: 'text-center',
-        },
+        { data: 'Username', name: 'Username', className: 'text-center' },
+        { data: 'First Name', name: 'First Name', className: 'text-center' },
         {
           data: 'Email',
           name: 'Email',
-          searchable: true,
           className: 'text-center text-lowercase',
         },
         {
           data: 'Role',
           name: 'Role',
-          searchable: true,
           className: 'text-center text-capitalize',
         },
         {
           data: 'Actions',
           name: 'Actions',
-          searchable: false,
           orderable: false,
+          searchable: false,
           className: 'text-center',
         },
       ],
     });
 
-    // Hide User Table if no data found
     table.on('xhr.dt', function (e, settings, json) {
       if (json.data.length === 0) {
         $('#userTable').hide();
@@ -130,12 +124,16 @@
       }
     });
 
-    // Delete User Confirmation
+    // Master checkbox
+    $('#selectAll').click(function () {
+      $('.user-checkbox').prop('checked', this.checked);
+    });
+
+    // Single delete
     $(document).on('click', '.delete_user', function (e) {
       e.preventDefault();
       const username = $(this).data('username');
       const url = $(this).attr('href');
-
       Swal.fire({
         title: 'Delete ' + username + '?',
         text: 'Are you sure you want to delete this user?',
@@ -147,6 +145,40 @@
       }).then(result => {
         if (result.isConfirmed) {
           window.location.href = url;
+        }
+      });
+    });
+
+    // Bulk delete
+    $('#bulkDeleteBtn').click(function () {
+      const selectedIds = $('.user-checkbox:checked')
+        .map(function () {
+          return $(this).val();
+        })
+        .get();
+      if (selectedIds.length === 0) {
+        Swal.fire('No users selected', '', 'info');
+        return;
+      }
+      Swal.fire({
+        title: `Delete ${selectedIds.length} selected users?`,
+        text: 'This action cannot be undone!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete!',
+      }).then(result => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: '{% url "bulk_delete_users" %}',
+            method: 'POST',
+            data: { ids: selectedIds, csrfmiddlewaretoken: '{{ csrf_token }}' },
+            success: function () {
+              table.ajax.reload();
+              Swal.fire('Deleted!', '', 'success');
+            },
+          });
         }
       });
     });

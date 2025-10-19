@@ -1,0 +1,218 @@
+{% extends "base.html" %} {% block title %} All Category {% endblock %}<br />
+{% block content %}
+<div class="row mb-3">
+  <div class="col-lg-12">
+    <div class="stat-card">
+      <!-- Dashboard Content -->
+      <div class="container-fluid p-4">
+        <div id="contentArea">
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="stat-card">
+                <div class="card-body">
+                  <form method="post" class="row g-3" novalidate>
+                    {% csrf_token %} {{ form.non_field_errors }}
+
+                    <div class="row">
+                      <!-- Category Name -->
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label fw-semibold">
+                          <i class="bi bi-tag me-1"></i>Category Name *
+                        </label>
+                        {{ form.category_name }}<br />
+                        {% for error in form.category_name.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                      </div>
+
+                      <!-- Parent Category -->
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label fw-semibold">
+                          <i class="bi bi-grid me-1"></i>Parent Category
+                        </label>
+                        {{ form.parent_category }}<br />
+                        {% for error in form.parent_category.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                      </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label fw-semibold">
+                        <i class="bi bi-check-circle me-1"></i>Status
+                      </label>
+                      {{ form.is_active }}<br />
+                      {% for error in form.is_active.errors %}
+                      <div class="text-danger small mt-1">{{ error }}</div>
+                      {% endfor %}
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="card-body text-end">
+                      {% if is_edit %}
+                      <button type="submit" class="btn btn-success btn-sm me-3">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Update
+                      </button>
+                      <a
+                        href="{% url 'all_category' %}"
+                        class="btn btn-secondary btn-sm me-3"
+                      >
+                        <i class="bi bi-arrow-counterclockwise me-2"></i>
+                        Back
+                      </a>
+                      {% else %}
+                      <button type="submit" class="btn btn-success btn-sm me-3">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Create
+                      </button>
+                      {% endif %}
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="stat-card">
+                <div class="table-responsive">
+                  <a
+                    name=""
+                    id=""
+                    class="btn btn-primary"
+                    href="{% url 'category_list' %}"
+                    role="button"
+                  >
+                    <i class="bi bi-arrow-counterclockwise me-2"></i> All List
+                  </a>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sno</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Sub-Category</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Main Category Row -->
+                      {% for category in category_data %}
+                      <tr class="category-row" data-id="{{ category.id }}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                          {{ category.category_name }}
+                          <small>({{ category.sub_categories.count }})</small>
+                        </td>
+                        <td>
+                          <!-- Toggle Button -->
+                          <button
+                            class="btn btn-outline-primary btn-sm w-20 text-start"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#subcat{{ category.id }}"
+                            aria-expanded="false"
+                            aria-controls="subcat{{ category.id }}"
+                          >
+                            <i class="bi bi-list-ul me-1"></i> Show
+                            Sub-Categories
+                          </button>
+
+                          <!-- Subcategory List -->
+                          <ul
+                            class="collapse list-group list-group-flush mt-2"
+                            id="subcat{{ category.id }}"
+                          >
+                            {% for sub in category.sub_categories.all %}
+                            <li class="list-group-item py-1">
+                              {% if sub.is_active %}
+                              <span
+                                class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 fs-8"
+                              >
+                                <i class="bi bi-check-circle-fill me-1"></i
+                                ><b></b>{{ sub.category_name }}
+                              </span>
+                              {% else %}
+                              <span
+                                class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 fs-8"
+                              >
+                                <i class="bi bi-x-circle-fill me-1"></i
+                                ><b></b>{{ sub.category_name }}
+                              </span>
+                              {% endif %}
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item py-1 text-muted">
+                              No Sub-Categories
+                            </li>
+                            {% endfor %}
+                          </ul>
+                        </td>
+                        <td>
+                          {% if category.is_active %}
+                          <span
+                            class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 fs-8"
+                          >
+                            <i class="bi bi-check-circle-fill me-1"></i>Active
+                          </span>
+                          {% else %}
+                          <span
+                            class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 fs-8"
+                          >
+                            <i class="bi bi-x-circle-fill me-1"></i>Inactive
+                          </span>
+                          {% endif %}
+                        </td>
+                        <td>
+                          <div class="dropdown">
+                            <button
+                              class="btn btn-light btn-sm dropdown-toggle"
+                              data-bs-toggle="dropdown"
+                            >
+                              <i class="bi bi-three-dots"></i>
+                            </button>
+                            <ul class="dropdown-menu shadow">
+                              <li>
+                                <a
+                                  class="dropdown-item"
+                                  href="{% url 'all_category'  %}"
+                                >
+                                  <i class="bi bi-eye me-2"></i>View
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  class="dropdown-item"
+                                  href="{% url 'edit_category' category.id %}"
+                                >
+                                  <i class="bi bi-pencil me-2"></i>Edit
+                                </a>
+                              </li>
+                              <li><hr class="dropdown-divider" /></li>
+                              <li>
+                                <a
+                                  href="{% url 'delete_category' category.id %}"
+                                  class="dropdown-item text-danger delete_category"
+                                  data-category-name="{{ category.category_name }}"
+                                >
+                                  <i class="bi bi-trash me-2"></i>Delete
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

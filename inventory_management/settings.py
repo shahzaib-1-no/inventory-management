@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Third-party / dev tools
     "django.contrib.humanize",  # Optional, for formatting in templates
     "debug_toolbar",  # agar use karna ho development ke liye
+    "inventory",
 ]
 
 MIDDLEWARE = [

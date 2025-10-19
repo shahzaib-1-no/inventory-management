@@ -1,0 +1,347 @@
+{% extends "base.html" %} {% block title %} Supplier Ledger {% endblock %}<br />
+{% block content %}
+<div class="row mb-3">
+  <div class="col-lg-12">
+    <div class="stat-card">
+      <!-- Header Section -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-md-8">
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="bg-primary bg-gradient rounded-circle p-3 me-3">
+                      <i class="bi bi-building text-white display-6"></i>
+                    </div>
+                    <div>
+                      <h1 class="h2 mb-1 fw-bold text-dark">
+                        {{ supplier.supplier_name | default:"None" }}
+                      </h1>
+                      <div class="d-flex align-items-center gap-3">
+                        {% if supplier.is_active %}
+                        <span
+                          class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 fs-6"
+                        >
+                          <i class="bi bi-check-circle-fill me-1"></i>Active
+                          Supplier
+                        </span>
+                        {% else %}
+                        <span
+                          class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 fs-6"
+                        >
+                          <i class="bi bi-x-circle-fill me-1"></i>Inactive
+                          Supplier
+                        </span>
+                        {% endif %}
+                        <small class="text-muted"
+                          >ID: SUP-00{{ supplier.id }}</small
+                        >
+                        <small class="text-muted">|</small>
+                        <small class="text-muted">
+                          Member since: {{ supplier.created_at | date:"M d, Y"}}
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                  <div class="btn-group" role="group">
+                    <a
+                      href='{% url "edit_supplier" supplier.id %}'
+                      class="btn btn-outline-primary"
+                    >
+                      <i class="bi bi-pencil me-1"></i>Edit
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Quick Stats -->
+      <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div
+            class="card bg-gradient text-white shadow-sm border-0 h-100"
+            style="background: #7e5aa2"
+          >
+            <div class="card-body text-center">
+              <i class="bi bi-wallet2 fs-1"></i>
+              <h4 class="fw-bold mb-1">
+                RS: {{ supplier.opening_balance | floatformat:2 }}
+              </h4>
+              <p class="mb-0 opacity-75">Opening Balance</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div
+            class="card bg-gradient text-white shadow-sm border-0 h-100"
+            style="background: #f5576c"
+          >
+            <div class="card-body text-center">
+              <i class="bi bi-receipt display-4 mb-2"></i>
+              <h4 class="fw-bold mb-1">127</h4>
+              <p class="mb-0 opacity-75">Total Transactions</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div
+            class="card bg-gradient text-white shadow-sm border-0 h-100"
+            style="background: #00f2fe 100%"
+          >
+            <div class="card-body text-center">
+              <i class="bi bi-calendar-check display-4 mb-2"></i>
+              <h4 class="fw-bold mb-1">15 Days</h4>
+              <p class="mb-0 opacity-75">Last Transaction</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div
+            class="card bg-gradient text-white shadow-sm border-0 h-100"
+            style="background: #38f9d7 100%"
+          >
+            <div class="card-body text-center">
+              <i class="bi bi-star-fill display-4 mb-2"></i>
+              <h4 class="fw-bold mb-1">4.8/5</h4>
+              <p class="mb-0 opacity-75">Supplier Rating</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Basic Information -->
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-bottom py-3">
+          <h5 class="mb-0 fw-bold text-dark">
+            <i class="bi bi-info-circle text-primary me-2"></i>
+            Basic Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="border-start border-primary border-4 ps-3">
+                <label class="form-label text-muted small fw-medium"
+                  >COMPANY NAME</label
+                >
+                <p class="mb-0 fw-bold text-dark fs-5">
+                  {{supplier.supplier_name}}.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="border-start border-success border-4 ps-3">
+                <label class="form-label text-muted small fw-medium"
+                  >SUPPLIER ID</label
+                >
+                <p class="mb-0 fw-bold text-dark fs-5">SUP-00{{supplier.id}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Contact Information -->
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-bottom py-3">
+          <h5 class="mb-0 fw-bold text-dark">
+            <i class="bi bi-person-lines-fill text-primary me-2"></i>
+            Contact Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <div
+                  class="bg-primary bg-opacity-10 rounded-circle p-2 me-3 mt-1"
+                >
+                  <i class="bi bi-person-fill text-primary"></i>
+                </div>
+                <div>
+                  <label class="form-label text-muted small fw-medium mb-1"
+                    >CONTACT PERSON</label
+                  >
+                  <p class="mb-0 fw-bold text-dark">
+                    {{ supplier.contact_person }}
+                  </p>
+                  <small class="text-muted">Sale Manager</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <div
+                  class="bg-success bg-opacity-10 rounded-circle p-2 me-3 mt-1"
+                >
+                  <i class="bi bi-telephone-fill text-success"></i>
+                </div>
+                <div>
+                  <label class="form-label text-muted small fw-medium mb-1"
+                    >PHONE NUMBER</label
+                  >
+                  <p class="mb-0 fw-bold text-dark">
+                    {{ supplier.phone_number }}
+                  </p>
+                  <small class="text-muted">Primary Contact</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <div class="bg-info bg-opacity-10 rounded-circle p-2 me-3 mt-1">
+                  <i class="bi bi-envelope-fill text-info"></i>
+                </div>
+                <div>
+                  <label class="form-label text-muted small fw-medium mb-1"
+                    >EMAIL ADDRESS</label
+                  >
+                  <p class="mb-0 fw-bold text-dark">
+                    {{ supplier.email | default:"None" }}
+                  </p>
+                  <small class="text-muted">Business Email</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Address Information -->
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-bottom py-3">
+          <h5 class="mb-0 fw-bold text-dark">
+            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+            Address Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-12">
+              <div class="bg-light rounded p-4">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h6 class="fw-bold text-dark mb-2">
+                      Registered Office Address
+                    </h6>
+                    <p class="mb-2 text-dark">
+                      {{supplier.address | default:"None"}}
+                    </p>
+                  </div>
+                  <div class="col-md-4 text-md-end">
+                    <div
+                      class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-3"
+                    >
+                      <i class="bi bi-building text-primary display-6"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-bottom py-3">
+          <div class="row align-items-center">
+            <div class="col">
+              <h5 class="mb-0 fw-bold text-dark">
+                <i class="bi bi-clock-history text-primary me-2"></i>
+                Recent Transactions
+              </h5>
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-eye me-1"></i>View All
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="border-0 fw-bold text-dark py-3 ps-4">Date</th>
+                  <th class="border-0 fw-bold text-dark py-3">
+                    Transaction ID
+                  </th>
+                  <th class="border-0 fw-bold text-dark py-3">Type</th>
+                  <th class="border-0 fw-bold text-dark py-3">Amount</th>
+                  <th class="border-0 fw-bold text-dark py-3 pe-4">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="py-3 ps-4">
+                    <div class="fw-medium text-dark">Dec 15, 2024</div>
+                    <small class="text-muted">10:30 AM</small>
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-medium text-dark">TXN-2024-001</span>
+                  </td>
+                  <td class="py-3">
+                    <span class="badge bg-success-subtle text-success px-2 py-1"
+                      >Payment Received</span
+                    >
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-bold text-success">+₹25,000</span>
+                  </td>
+                  <td class="py-3 pe-4">
+                    <span class="badge bg-success px-2 py-1">Completed</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-3 ps-4">
+                    <div class="fw-medium text-dark">Dec 10, 2024</div>
+                    <small class="text-muted">02:15 PM</small>
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-medium text-dark">TXN-2024-002</span>
+                  </td>
+                  <td class="py-3">
+                    <span class="badge bg-primary-subtle text-primary px-2 py-1"
+                      >Purchase Order</span
+                    >
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-bold text-primary">₹70,000</span>
+                  </td>
+                  <td class="py-3 pe-4">
+                    <span class="badge bg-warning px-2 py-1">Pending</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-3 ps-4">
+                    <div class="fw-medium text-dark">Dec 05, 2024</div>
+                    <small class="text-muted">11:45 AM</small>
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-medium text-dark">TXN-2024-003</span>
+                  </td>
+                  <td class="py-3">
+                    <span class="badge bg-info-subtle text-info px-2 py-1"
+                      >Invoice Generated</span
+                    >
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-bold text-info">₹45,000</span>
+                  </td>
+                  <td class="py-3 pe-4">
+                    <span class="badge bg-success px-2 py-1">Completed</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.db import transaction
 from django.db.models import Count, Q
@@ -10,9 +10,15 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
-
-from dashboard.forms import (EditGroupForm, EditUserForm, GroupForm, LoginForm,
-                             RegisterForm)
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from dashboard.forms import (
+    EditGroupForm,
+    EditUserForm,
+    GroupForm,
+    LoginForm,
+    RegisterForm,
+)
 from dashboard.models import Notification
 from inventory_management.decorators import permission_required_message
 
@@ -163,6 +169,27 @@ def edit_role(request, id):
     return render(request, "dashboard/permission_management/edit_group.html", context)
 
 
+@login_required
+@csrf_exempt
+def bulk_group_delete(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                ids = request.POST.getlist("ids[]")
+                # filter groups jinke paas koi user assigned na ho
+                deletable_groups = (
+                    Group.objects.filter(id__in=ids)
+                    .annotate(user_count=Count("user"))
+                    .filter(user_count=0)
+                )
+                deletable_ids = list(deletable_groups.values_list("id", flat=True))
+                deletable_groups.delete()
+                return JsonResponse({"status": "success", "deleted_ids": deletable_ids})
+        except Exception as e:
+            return JsonResponse({"status": f"error - {str(e)}"}, status=400)
+    return JsonResponse({"status": "error"}, status=400)
+
+
 # Roles & Permissions Views Section End
 
 
@@ -258,6 +285,9 @@ class UserListJson(BaseDatatableView):
     search_fields = ["username", "first_name", "email", "groups__name"]
 
     def filter_queryset(self, qs):
+        # exclude superusers
+        qs = qs.filter(is_superuser=False)
+
         search_value = self.request.GET.get("search[value]", None)
         if search_value:
             q = Q()
@@ -269,8 +299,13 @@ class UserListJson(BaseDatatableView):
     def prepare_results(self, qs):
         data = []
         for index, item in enumerate(qs, start=1):
+            checkbox = format_html(
+                '<input type="checkbox" class="user-checkbox" value="{}">', item.id
+            )
             data.append(
                 {
+                    "id": item.id,
+                    "Checkbox": checkbox,
                     "SnO": index,
                     "Username": item.username,
                     "First Name": item.first_name,
@@ -279,7 +314,6 @@ class UserListJson(BaseDatatableView):
                     "Actions": self.render_column(item, "action"),
                 }
             )
-        print(f"data sent to datatable: {data}")
         return data
 
     def render_column(self, row, column):
@@ -298,6 +332,21 @@ class UserListJson(BaseDatatableView):
                 row.username,
             )
         return super().render_column(row, column)
+
+
+@login_required
+@csrf_exempt
+def bulk_delete_users(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                ids = request.POST.getlist("ids[]")  # multiple IDs
+                # delete all users except superusers
+                User.objects.filter(id__in=ids, is_superuser=False).delete()
+                return JsonResponse({"status": "success"})
+        except Exception as e:
+            return JsonResponse({"status": "error - " + str(e)}, status=400)
+    return JsonResponse({"status": "error"}, status=400)
 
 
 # VIEWS USER MANAGEMENT SECTION END

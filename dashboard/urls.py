@@ -29,6 +29,11 @@ urlpatterns = [
         views.edit_role,
         name="edit_role",
     ),
+    path(
+        "user_role_and_permission/bulk_delete/",
+        views.bulk_group_delete,
+        name="bulk_group_delete",
+    ),
     # Roles & Permissions URLs Section End
     # User Management URLs CRUD Section Start
     path("user/add_user/", views.add_user, name="add_user"),
@@ -41,5 +46,6 @@ urlpatterns = [
         views.UserListJson.as_view(),
         name="ajax_user_list_data",
     ),
+    path("users/bulk_delete/", views.bulk_delete_users, name="bulk_delete_users"),
     # User Management URLs CRUD Section End
 ]

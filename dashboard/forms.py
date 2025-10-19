@@ -13,9 +13,9 @@ class LoginForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        username = cleaned_data.get("username")
-        password = cleaned_data.get("password")
-        remember = cleaned_data.get("remember")
+        cleaned_data.get("username")
+        cleaned_data.get("password")
+        cleaned_data.get("remember")
 
         return cleaned_data
 
@@ -23,9 +23,16 @@ class LoginForm(forms.Form):
 class GroupForm(forms.ModelForm):
     permissions = forms.ModelMultipleChoiceField(
         queryset=Permission.objects.filter(
-            content_type__app_label__in=["auth", "group"],
-            content_type__model__in=["user", "permission"],
-        ).exclude(codename="change_user"),
+            content_type__app_label__in=["auth", "group", "inventory"],
+            content_type__model__in=[
+                "user",
+                "permission",
+                "supplier",
+                "category",
+                "warehouse",
+                "product",
+            ],
+        ),  # .exclude(codename="change_user")
         required=False,
         help_text="Select permissions for this role",
         widget=forms.SelectMultiple(
@@ -235,8 +242,15 @@ class EditUserForm(forms.ModelForm):
 class EditGroupForm(forms.ModelForm):
     permissions = forms.ModelMultipleChoiceField(
         queryset=Permission.objects.filter(
-            content_type__app_label__in=["auth", "group"],
-            content_type__model__in=["user", "permission"],
+            content_type__app_label__in=["auth", "group", "inventory"],
+            content_type__model__in=[
+                "user",
+                "permission",
+                "product",
+                "category",
+                "warehouse",
+                "supplier",
+            ],
         ),
         required=False,
         help_text="Select permissions for this role",
@@ -274,9 +288,10 @@ class EditGroupForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         name = cleaned_data.get("name")
-        permissions = cleaned_data.get("permissions")
 
-        if Group.objects.filter(name=name).exists():
+        # verification for instance (update case) is must be excluded.
+        existing_group = Group.objects.filter(name=name).exclude(pk=self.instance.pk)
+        if existing_group.exists():
             raise forms.ValidationError("This role name is already registered.")
 
         return cleaned_data

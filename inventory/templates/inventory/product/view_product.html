@@ -1,0 +1,169 @@
+{% extends "base.html" %} {% block title %} Product Details {% endblock %}
+<b></b> {% block content %}
+<div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+  <!-- Gradient Header -->
+  <div
+    class="bg-gradient bg-primary bg-opacity-10 p-4 border-bottom border-primary border-opacity-25"
+  >
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <div class="position-relative">
+          {% if product.image %}
+          <img
+            src="{{ product.image.url }}"
+            class="rounded-circle border border-4 border-white shadow"
+            alt="{{ product.product_name }}"
+            style="width: 120px; height: 120px; object-fit: cover"
+          />
+          {% else %}
+          <img
+            src="https://via.placeholder.com/150"
+            class="rounded-circle border border-4 border-white shadow"
+            alt="No Image"
+            style="width: 120px; height: 120px; object-fit: cover"
+          />
+          {% endif %}
+        </div>
+      </div>
+      <div class="col">
+        <h2 class="mb-1 fw-bold text-dark">{{ product.product_name }}</h2>
+        <p class="text-muted mb-2 fs-5">{{ product.category }}</p>
+        <span class="badge bg-primary bg-opacity-75 px-3 py-2 fs-6">
+          <i class="bi bi-box-seam me-1"></i>{{ product.measure }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body p-4">
+    <h4
+      class="mb-4 fw-semibold text-primary border-start border-4 border-primary ps-3"
+    >
+      <i class="bi bi-info-circle me-2"></i>Product Information
+    </h4>
+
+    <div class="row g-4">
+      <!-- Category -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-tags-fill text-primary fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Category</small>
+            <span class="fw-semibold">{{ product.category }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supplier -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-person-badge-fill text-primary fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Supplier</small>
+            <span class="fw-semibold">{{ product.supplier }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Warehouse -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-building text-primary fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Warehouse</small>
+            <span class="fw-semibold">{{ product.warehouse }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prices -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-currency-dollar text-success fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Purchase Price</small>
+            <span class="fw-semibold">{{ product.purchase_price }}</span><br />
+            <small class="text-muted d-block mb-1 mt-2">Selling Price</small>
+            <span class="fw-semibold">{{ product.selling_price }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tax Rate -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-percent text-warning fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Tax Rate</small>
+            <span class="fw-semibold">{{ product.tax_rate }}%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stock -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-box text-info fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Stock</small>
+            <span class="fw-semibold">{{ product.stock }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dates -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-calendar-event text-primary fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Manufacture Date</small>
+            <span class="fw-semibold">{{ product.manufacture_date }}</span
+            ><br />
+            <small class="text-muted d-block mb-1 mt-2">Expiry Date</small>
+            <span class="fw-semibold">{{ product.expiry_date }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-toggle-on text-success fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Status</small>
+            {% if product.is_active %}
+            <span class="badge bg-success">Active</span>
+            {% else %}
+            <span class="badge bg-danger">Inactive</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="col-12">
+        <div class="p-3 bg-light rounded-3">
+          <small class="text-muted d-block mb-1">Notes</small>
+          <span class="fw-semibold">{{ product.notes }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex gap-2 mt-4 pt-3 border-top">
+      <a
+        href="{% url 'edit_product' product.id %}"
+        class="btn btn-primary btn-lg px-4 rounded-pill flex-grow-1"
+      >
+        <i class="bi bi-pencil-square me-2"></i>Edit Product
+      </a>
+      <a
+        href="{% url 'product_list' %}"
+        class="btn btn-outline-secondary btn-lg px-4 rounded-pill"
+      >
+        <i class="bi bi-arrow-left me-2"></i>Back
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

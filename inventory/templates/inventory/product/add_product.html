@@ -1,0 +1,89 @@
+{% extends "base.html" %} {% block title %} Product {% endblock %}
+<br />
+{% block content %}
+<div class="row mb-3">
+  <div class="col-lg-12">
+    <div class="stat-card">
+      <!-- Header Section -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-md-6">
+                  <h1 class="h3 mb-1 fw-bold text-dark">
+                    <i class="bi bi-box text-primary me-2"></i>
+                    Product Management
+                  </h1>
+                  <p class="text-muted mb-0">
+                    Manage your products, add new products and Edit products.
+                  </p>
+                </div>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                  <a
+                    href='{% url "product_list" %}'
+                    type="button"
+                    class="btn btn-info btn-sm shadow-sm"
+                  >
+                    <i class="bi bi-eye me-2"></i>
+                    View Products
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Form Section -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <form
+                method="post"
+                enctype="multipart/form-data"
+                class="row g-3"
+                novalidate
+              >
+                {% csrf_token %} {% for field in form %}
+                <div class="col-md-6 mb-3">
+                  {{ field.label_tag }} {% if field.help_text %}
+                  <small class="form-text text-muted"
+                    >{{ field.help_text }}</small
+                  >
+                  {% endif %} {{ field }}
+                  <b></b>
+                  {% for error in field.errors %}
+                  <div class="invalid-feedback d-block">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                {% endfor %}
+                <div class="col-md-12 text-md-end mt-3 mt-md-0">
+                  {% if is_edit %}
+                  <button
+                    type="submit"
+                    class="btn btn-success btn-sm shadow-sm w-100"
+                  >
+                    <i class="bi bi-save me-2"></i>
+                    Save
+                  </button>
+                  {% else %}
+                  <button
+                    type="submit"
+                    class="btn btn-success btn-sm shadow-sm w-100"
+                  >
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Add New Product
+                  </button>
+                  {% endif %}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
