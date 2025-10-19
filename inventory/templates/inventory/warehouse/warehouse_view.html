@@ -1,0 +1,119 @@
+{% extends "base.html" %} <b></b>
+{% block title %} Warehouse Details {% endblock %} {% block content %}
+<div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+  <!-- Header -->
+  <div
+    class="bg-gradient bg-primary bg-opacity-10 p-4 border-bottom border-primary border-opacity-25"
+  >
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <div
+          class="bg-primary bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center"
+          style="width: 120px; height: 120px"
+        >
+          <i class="bi bi-building text-primary fs-1"></i>
+        </div>
+      </div>
+      <div class="col">
+        <h2 class="mb-1 fw-bold text-dark">{{ warehouse.warehouse_name }}</h2>
+        <p class="text-muted mb-2 fs-5">{{ warehouse.city }}</p>
+        {% if warehouse.is_active %}
+        <span class="badge bg-success px-3 py-2 fs-6"
+          ><i class="bi bi-check-circle me-1"></i>Active</span
+        >
+        {% else %}
+        <span class="badge bg-danger px-3 py-2 fs-6"
+          ><i class="bi bi-x-circle me-1"></i>Inactive</span
+        >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body p-4">
+    <h4
+      class="mb-4 fw-semibold text-primary border-start border-4 border-primary ps-3"
+    >
+      <i class="bi bi-info-circle me-2"></i>Warehouse Information
+    </h4>
+
+    <div class="row g-4">
+      <!-- Address -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-geo-alt text-primary fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Address</small>
+            <span class="fw-semibold">{{ warehouse.address }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- City -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-buildings text-primary fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">City</small>
+            <span class="fw-semibold">{{ warehouse.city }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="col-12">
+        <div class="p-3 bg-light rounded-3">
+          <small class="text-muted d-block mb-1">Notes</small>
+          <span class="fw-semibold">{{ warehouse.notes }}</span>
+        </div>
+      </div>
+
+      <!-- Created / Updated Info -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-person-plus text-secondary fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Created By</small>
+            <span class="fw-semibold">{{ warehouse.created_by }}</span><br />
+            <small class="text-muted d-block mt-2">Created At</small>
+            <span class="fw-semibold"
+              >{{ warehouse.created_at|date:"Y-m-d H:i" }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <i class="bi bi-pencil text-secondary fs-4"></i>
+          <div class="ms-3">
+            <small class="text-muted d-block mb-1">Updated By</small>
+            <span class="fw-semibold">{{ warehouse.updated_by }}</span><br />
+            <small class="text-muted d-block mt-2">Updated At</small>
+            <span class="fw-semibold"
+              >{{ warehouse.updated_at|date:"Y-m-d H:i" }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex gap-2 mt-4 pt-3 border-top">
+      <a
+        href="{% url 'edit_warehouse' warehouse.id %}"
+        class="btn btn-primary btn-lg px-4 rounded-pill flex-grow-1"
+      >
+        <i class="bi bi-pencil-square me-2"></i>Edit Warehouse
+      </a>
+      <a
+        href="{% url 'warehouse_list' %}"
+        class="btn btn-outline-secondary btn-lg px-4 rounded-pill"
+      >
+        <i class="bi bi-arrow-left me-2"></i>Back
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

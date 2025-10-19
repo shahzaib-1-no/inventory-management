@@ -1,0 +1,186 @@
+{% extends "base.html" %} {% block title %} Supplier Details {% endblock %}<br />
+{% block content %}
+<!-- Modern Card with Gradient Header -->
+<div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+  <!-- Gradient Header -->
+  <div
+    class="bg-gradient bg-primary bg-opacity-10 p-4 border-bottom border-primary border-opacity-25"
+  >
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <div class="position-relative">
+          <img
+            src="https://via.placeholder.com/150"
+            class="rounded-circle border border-4 border-white shadow"
+            alt="Supplier Logo"
+            style="width: 120px; height: 120px; object-fit: cover"
+          />
+          <span
+            class="position-absolute bottom-0 end-0 p-2 bg-success border border-3 border-white rounded-circle"
+          ></span>
+        </div>
+      </div>
+      <div class="col">
+        <h2 class="mb-1 fw-bold text-dark">{{ supplier.supplier_name }}</h2>
+        <p class="text-muted mb-2 fs-5">@{{ supplier.contact_person }}</p>
+        <span class="badge bg-primary bg-opacity-75 px-3 py-2 fs-6">
+          <i class="bi bi-building me-1"></i>{{ supplier.city }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Body with Supplier Information -->
+  <div class="card-body p-4">
+    <h4
+      class="mb-4 fw-semibold text-primary border-start border-4 border-primary ps-3"
+    >
+      <i class="bi bi-truck me-2"></i>Supplier Information
+    </h4>
+
+    <div class="row g-4">
+      <!-- Contact Information -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-person-fill text-primary fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">Supplier Name</small>
+            <span class="fw-semibold">{{ supplier.supplier_name }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Contact Person -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-envelope-fill text-primary fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">Contact Person</small>
+            <span class="fw-semibold">{{ supplier.contact_person }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- City -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-geo-alt-fill text-primary fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">City</small>
+            <span class="fw-semibold">{{ supplier.city }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Email Address -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-envelope-fill text-primary fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">Email Address</small>
+            <span class="fw-semibold">{{ supplier.email }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-telephone-fill text-primary fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">Phone Number</small>
+            <span class="fw-semibold">{{ supplier.phone_number }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-geo-alt-fill text-primary fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">Address</small>
+            <span class="fw-semibold">{{ supplier.address }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opening Balance -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-currency-dollar text-success fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">Opening Balance</small>
+            <span class="fw-semibold">{{ supplier.opening_balance }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Terms -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-calendar-check-fill text-info fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">Payment Terms</small>
+            <span class="fw-semibold">{{ supplier.payment_terms }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start p-3 bg-light rounded-3">
+          <div class="flex-shrink-0">
+            <i class="bi bi-toggle-on text-success fs-4"></i>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <small class="text-muted d-block mb-1">Status</small>
+            {% if supplier.is_active %}
+            <span class="badge bg-success">Active</span>
+            {% else %}
+            <span class="badge bg-danger">Inactive</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="col-12">
+        <div class="p-3 bg-light rounded-3">
+          <small class="text-muted d-block mb-1">Notes</small>
+          <span class="fw-semibold">{{ supplier.notes }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex gap-2 mt-4 pt-3 border-top">
+      <a
+        href='{% url "edit_supplier" supplier.id %}'
+        class="btn btn-primary btn-lg px-4 rounded-pill flex-grow-1"
+      >
+        <i class="bi bi-pencil-square me-2"></i>Edit Supplier
+      </a>
+      <a
+        href='{% url "all_supplier" %}'
+        class="btn btn-outline-secondary btn-lg px-4 rounded-pill"
+      >
+        <i class="bi bi-arrow-left me-2"></i>Back
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

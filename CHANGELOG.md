@@ -2,28 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+<!-- ## [Unreleased]
+
+> Work in progress. Features listed here are planned but not yet released.
+
+### Added
+
+- Not yet released
+
+--- -->
+
 ## [Unreleased]
+
+> Work in progress. Features listed here are planned but not yet released.
+
+### Added
+
+- Purchase Management CRUD
+- Sales Order Management CRUD and more
+
+---
+
+## [v1.1.0] - 2025-09-19
 
 ### Added
 
 - Product Management CRUD
 - Category Management CRUD
 - Supplier Management CRUD
-
-### Changed
-
-- Improved UI/UX for user and role management pages
-- Enhanced responsive design for better mobile experience
+- Warehouse Management CRUD
+- Inventory Management CRUD
 
 ### Fixed
 
-- Minor bug in URL reverse for user detail view
-- DataTable pagination issue on low-resolution screens
+- Minor bug in overall website layout
 
 ---
 

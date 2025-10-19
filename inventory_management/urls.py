@@ -25,6 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("dashboard/", include("dashboard.urls")),
     path("", lambda request: redirect("dashboard/")),
+    path("dashboard/inventory/", include("inventory.urls")),
 ]
 
 if settings.DEBUG:
